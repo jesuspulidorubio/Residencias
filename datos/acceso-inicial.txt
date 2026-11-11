@@ -1,0 +1,9 @@
+SIGEV - Acceso inicial al sistema
+=================================
+Generado: 16/8/2026, 1:52:03 p.m.
+
+  Usuario:    admin
+  Contrasena: WSD2CZfTLcjyKw
+
+Cambie esta contrasena al entrar (menu del usuario > Cambiar contrasena)
+y elimine este archivo. Nunca lo suba a un repositorio.

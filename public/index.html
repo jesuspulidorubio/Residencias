@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIGEV | Control de Equipo y Vigencias</title>
+  <meta name="description" content="Control de gafetes, extintores y equipo con vigencia. Comision Federal de Electricidad." />
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/estilos.css" />
+</head>
+<body>
+
+<!-- ===================== BIBLIOTECA DE ICONOS ===================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-panel" viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 3h7v4h-7zM14 11h7v10h-7zM3 14h7v7H3z"/></symbol>
+  <symbol id="i-vigencias" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6.5V12l3.8 2.2"/></symbol>
+  <symbol id="i-campana" viewBox="0 0 24 24"><path d="M18.5 8.5a6.5 6.5 0 0 0-13 0c0 7-2.2 8.3-2.2 8.3h17.4s-2.2-1.3-2.2-8.3"/><path d="M10.2 20.2a2.2 2.2 0 0 0 3.6 0"/></symbol>
+  <symbol id="i-gafete" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><circle cx="8.6" cy="10.6" r="2.1"/><path d="M5.4 16.4c.5-1.6 5.9-1.6 6.4 0M14.5 10h4M14.5 13.5h4"/></symbol>
+  <symbol id="i-extintor" viewBox="0 0 24 24"><path d="M9 8.5h6v11.2a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z"/><path d="M10.4 8.5V6.4h3.2v2.1M14 5.4h3.2a1.6 1.6 0 0 1 1.6 1.6v1.7M12 3.2v2.2"/></symbol>
+  <symbol id="i-equipo" viewBox="0 0 24 24"><rect x="3" y="7.5" width="18" height="12.5" rx="1.6"/><path d="M8.8 7.5V5.2a1 1 0 0 1 1-1h4.4a1 1 0 0 1 1 1v2.3M3 13h18"/></symbol>
+  <symbol id="i-licencia" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2"/><circle cx="8.4" cy="12" r="3.2"/><path d="M8.4 8.8v6.4M5.2 12h6.4M14.6 10.2h4.4M14.6 13.8h4.4"/></symbol>
+  <symbol id="i-botiquin" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8.6 7V5.4a1 1 0 0 1 1-1h4.8a1 1 0 0 1 1 1V7M12 10.6v6M9 13.6h6"/></symbol>
+  <symbol id="i-arnes" viewBox="0 0 24 24"><circle cx="12" cy="4.6" r="2.2"/><path d="M12 6.8v5.4M7 9.5l5 2.7 5-2.7M8.6 20.4l3.4-8.2 3.4 8.2M6.6 14.6h10.8"/></symbol>
+  <symbol id="i-personal" viewBox="0 0 24 24"><circle cx="9.2" cy="8.4" r="3.2"/><path d="M3 20.2c0-3.4 2.8-5.4 6.2-5.4s6.2 2 6.2 5.4"/><path d="M16.4 11.2a3 3 0 0 0 0-6M21 20.2c0-2.6-1.5-4.3-4-5"/></symbol>
+  <symbol id="i-usuarios" viewBox="0 0 24 24"><path d="M12 3.2l7.4 3v5.6c0 4.6-3.2 7.9-7.4 9.2-4.2-1.3-7.4-4.6-7.4-9.2V6.2z"/><path d="M9 12.2l2.2 2.2 4-4.2"/></symbol>
+  <symbol id="i-config" viewBox="0 0 24 24"><path d="M4 7h8M17.5 7H20M4 12h3.5M13 12h7M4 17h8M17.5 17H20"/><circle cx="14.5" cy="7" r="2.2"/><circle cx="10" cy="12" r="2.2"/><circle cx="14.5" cy="17" r="2.2"/></symbol>
+  <symbol id="i-bitacora" viewBox="0 0 24 24"><rect x="5" y="4.5" width="14" height="16.5" rx="1.6"/><path d="M9 3.2h6v2.6H9zM8.6 11h6.8M8.6 15h4.8"/></symbol>
+  <symbol id="i-buscar" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20.2 20.2l-4.2-4.2"/></symbol>
+  <symbol id="i-descargar" viewBox="0 0 24 24"><path d="M12 4v10M8 12l4 4 4-4M4.5 19.5h15"/></symbol>
+  <symbol id="i-mas" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-refrescar" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v5h-5"/></symbol>
+  <symbol id="i-imprimir" viewBox="0 0 24 24"><path d="M7 8.5V4h10v4.5"/><path d="M7 18.5H5.2A2.2 2.2 0 0 1 3 16.3v-3.6a2.2 2.2 0 0 1 2.2-2.2h13.6A2.2 2.2 0 0 1 21 12.7v3.6a2.2 2.2 0 0 1-2.2 2.2H17"/><rect x="7" y="14.5" width="10" height="6"/></symbol>
+  <symbol id="i-ver" viewBox="0 0 24 24"><path d="M2.5 12S6 6.2 12 6.2 21.5 12 21.5 12 18 17.8 12 17.8 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.6"/></symbol>
+  <symbol id="i-editar" viewBox="0 0 24 24"><path d="M4 20h4.2L19.4 8.8a2.2 2.2 0 0 0-3.1-3.1L5 16.9z"/></symbol>
+  <symbol id="i-eliminar" viewBox="0 0 24 24"><path d="M4.5 7h15M9.5 7V4.8h5V7M6.6 7l1 13.2h8.8L17.4 7"/></symbol>
+  <symbol id="i-cerrar" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-salir" viewBox="0 0 24 24"><path d="M15 12H4.5M8 8l-4 4 4 4M13.5 4.5h6v15h-6"/></symbol>
+  <symbol id="i-llave" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="3.8"/><path d="M10.4 12.6L19 4l2.6 2.6-1.9 1.9-1.8-1.8-1.9 1.9"/></symbol>
+  <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M6 9.5l6 6 6-6"/></symbol>
+  <symbol id="i-rayo" viewBox="0 0 24 24"><path d="M13.5 3L6 13.5h5l-1.5 7.5L18 10.5h-5z"/></symbol>
+</svg>
+
+<!-- ===================== ACCESO ===================== -->
+<section id="pantalla-acceso" class="acceso">
+  <aside class="acceso__lienzo">
+    <img class="acceso__marca" src="img/cfe-blanco.png" alt="Comision Federal de Electricidad" />
+
+    <div class="acceso__titular">
+      <span class="clave">SIGEV / 2026</span>
+      <h1>Control de<br />equipo y<br /><em>vigencias</em></h1>
+    </div>
+
+    <ol class="acceso__indice">
+      <li><span>01</span> Gafetes del personal</li>
+      <li><span>02</span> Extintores y recargas</li>
+      <li><span>03</span> Equipo con caducidad</li>
+      <li><span>04</span> Alertas de vencimiento</li>
+    </ol>
+
+    <p class="acceso__pie">Sistema interno · Seguridad e Higiene</p>
+  </aside>
+
+  <main class="acceso__forma">
+    <form id="form-acceso" class="acceso__caja" autocomplete="on">
+      <span class="clave clave--verde">Acceso restringido</span>
+      <h2>Identificacion<br />de usuario</h2>
+
+      <label class="campo">
+        <span>Usuario</span>
+        <input name="usuario" type="text" required autofocus autocomplete="username" />
+      </label>
+
+      <label class="campo">
+        <span>Contrasena</span>
+        <input name="contrasena" type="password" required autocomplete="current-password" />
+      </label>
+
+      <p id="error-acceso" class="alerta alerta--error oculto"></p>
+
+      <button class="boton boton--primario boton--bloque" type="submit">
+        Entrar <svg class="ico"><use href="#i-rayo" /></svg>
+      </button>
+
+      <p class="acceso__nota" id="nota-servidor">
+        En el primer arranque el sistema genera la contrasena del administrador y la
+        muestra en la consola del servidor, con copia en <code>datos/acceso-inicial.txt</code>.
+      </p>
+
+      <div class="acceso__demo oculto" id="nota-demo">
+        <strong>Modo demostracion</strong>
+        <p>
+          Esta version corre completa dentro del navegador, sin servidor: los datos son de
+          ejemplo y se guardan solo en este equipo. El sistema real usa Node y SQLite.
+        </p>
+        <p class="acceso__perfiles">
+          Entre con cualquiera de los tres perfiles para ver como cambia el menu.
+          La contrasena es igual al usuario:
+        </p>
+        <div class="acceso__cuentas">
+          <button type="button" data-cuenta="admin"><b>admin</b> Administrador</button>
+          <button type="button" data-cuenta="seguridad"><b>seguridad</b> Jefe de Seguridad</button>
+          <button type="button" data-cuenta="documentacion"><b>documentacion</b> Enc. de Documentacion</button>
+        </div>
+      </div>
+    </form>
+  </main>
+</section>
+
+<!-- ===================== APLICACION ===================== -->
+<div id="aplicacion" class="aplicacion oculto">
+
+  <header class="barra">
+    <button class="barra__menu" id="btn-menu" aria-label="Menu"><svg class="ico"><use href="#i-menu" /></svg></button>
+
+    <!-- En la barra se usa solo la marca: el renglon "Comision Federal de
+         Electricidad" del logotipo completo resulta ilegible a esta altura. -->
+    <img class="barra__logo" src="img/cfe-marca-blanco.png" alt="CFE" />
+
+    <div class="barra__titulo">
+      <strong>SIGEV</strong>
+      <span id="barra-centro">Centro de trabajo</span>
+    </div>
+
+    <div class="barra__acciones">
+      <span class="reloj" id="reloj"></span>
+      <button class="barra__boton" id="btn-revisar" title="Revisar vencimientos ahora">
+        <svg class="ico"><use href="#i-refrescar" /></svg>
+      </button>
+      <button class="barra__boton" id="btn-campana" title="Notificaciones">
+        <svg class="ico"><use href="#i-campana" /></svg>
+        <span class="insignia oculto" id="contador-notificaciones">0</span>
+      </button>
+      <div class="usuario" id="menu-usuario">
+        <span class="usuario__inicial" id="avatar-usuario">--</span>
+        <span class="usuario__datos">
+          <strong id="nombre-usuario">Usuario</strong>
+          <em id="rol-usuario">Rol</em>
+        </span>
+        <div class="menu" id="menu-desplegable">
+          <button data-accion="contrasena"><svg class="ico"><use href="#i-llave" /></svg> Cambiar contrasena</button>
+          <button data-accion="salir"><svg class="ico"><use href="#i-salir" /></svg> Cerrar sesion</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Cinta de estado operativo -->
+  <div class="cinta" id="cinta">
+    <span class="cinta__titulo">Estado operativo</span>
+    <span class="cinta__dato" data-estado="vencido"><b id="c-vencido">0</b> vencidos</span>
+    <span class="cinta__dato" data-estado="critico"><b id="c-critico">0</b> criticos</span>
+    <span class="cinta__dato" data-estado="proximo"><b id="c-proximo">0</b> por vencer</span>
+    <span class="cinta__dato" data-estado="vigente"><b id="c-vigente">0</b> vigentes</span>
+    <span class="cinta__demo oculto" id="cinta-demo">Demostracion</span>
+    <span class="cinta__sello" id="cinta-sello">Ultima revision: —</span>
+  </div>
+
+  <div class="cuerpo">
+    <nav class="rail" id="rail">
+      <!-- Cada seccion se contrae y expande de forma independiente; el estado
+           se recuerda en el navegador (ver app.js). -->
+      <button class="rail__seccion" type="button" data-grupo="operacion" aria-expanded="true">
+        <span>01 · Operacion</span>
+        <svg class="rail__flecha" aria-hidden="true"><use href="#i-flecha" /></svg>
+      </button>
+      <div class="rail__grupo" data-grupo="operacion">
+        <div class="rail__enlaces">
+          <a href="#/panel" data-vista="panel"><svg class="ico"><use href="#i-panel" /></svg><span>Panel</span></a>
+          <a href="#/vigencias" data-vista="vigencias"><svg class="ico"><use href="#i-vigencias" /></svg><span>Vigencias</span></a>
+          <a href="#/notificaciones" data-vista="notificaciones"><svg class="ico"><use href="#i-campana" /></svg><span>Alertas</span><i class="rail__contador oculto" id="rail-alertas">0</i></a>
+        </div>
+      </div>
+
+      <button class="rail__seccion" type="button" data-grupo="elementos" data-seccion="elementos" aria-expanded="true">
+        <span>02 · Elementos</span>
+        <svg class="rail__flecha" aria-hidden="true"><use href="#i-flecha" /></svg>
+      </button>
+      <div class="rail__grupo" data-grupo="elementos" data-seccion="elementos">
+        <div class="rail__enlaces">
+          <a href="#/extintores" data-vista="extintores" data-modulo="extintores"><svg class="ico"><use href="#i-extintor" /></svg><span>Extintores</span></a>
+          <a href="#/equipos" data-vista="equipos" data-modulo="equipos"><svg class="ico"><use href="#i-equipo" /></svg><span>Equipo de Seguridad</span></a>
+          <a href="#/gafetes" data-vista="gafetes" data-modulo="gafetes"><svg class="ico"><use href="#i-gafete" /></svg><span>Gafetes</span></a>
+          <a href="#/licencias" data-vista="licencias" data-modulo="licencias"><svg class="ico"><use href="#i-licencia" /></svg><span>Licencias</span></a>
+        </div>
+      </div>
+
+      <button class="rail__seccion" type="button" data-grupo="padron" aria-expanded="true">
+        <span>03 · Padron</span>
+        <svg class="rail__flecha" aria-hidden="true"><use href="#i-flecha" /></svg>
+      </button>
+      <div class="rail__grupo" data-grupo="padron">
+        <div class="rail__enlaces">
+          <a href="#/empleados" data-vista="empleados" data-modulo="empleados"><svg class="ico"><use href="#i-personal" /></svg><span>Personal</span></a>
+        </div>
+      </div>
+
+      <button class="rail__seccion" type="button" data-grupo="administracion" data-rol="admin" aria-expanded="true">
+        <span>04 · Administracion</span>
+        <svg class="rail__flecha" aria-hidden="true"><use href="#i-flecha" /></svg>
+      </button>
+      <div class="rail__grupo" data-grupo="administracion" data-rol="admin">
+        <div class="rail__enlaces">
+          <a href="#/usuarios" data-vista="usuarios" data-rol="admin"><svg class="ico"><use href="#i-usuarios" /></svg><span>Usuarios</span></a>
+          <a href="#/configuracion" data-vista="configuracion" data-rol="admin"><svg class="ico"><use href="#i-config" /></svg><span>Configuracion</span></a>
+          <a href="#/bitacora" data-vista="bitacora" data-rol="admin"><svg class="ico"><use href="#i-bitacora" /></svg><span>Bitacora</span></a>
+        </div>
+      </div>
+
+      <div class="rail__pie">
+        <span>SIGEV 1.0</span>
+        <span id="rail-fecha"></span>
+      </div>
+    </nav>
+
+    <main class="contenido" id="contenido"></main>
+  </div>
+</div>
+
+<div id="capa-modal" class="capa-modal oculto"></div>
+<div id="avisos" class="avisos"></div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
